@@ -47,13 +47,11 @@ QString MainWindow::generatePassword()
 
 void MainWindow::on_QuantityPassSymbolSlide_sliderMoved(int position)
 {
-    QString sliderNumber = QString::number(position);
-    ui->QuantityPassSymbol->setText(sliderNumber);
+    ui->QuantityPassSymbol->setValue(position);
 }
 void MainWindow::on_QuantityPassSymbolSlide_valueChanged(int value)
 {
-    QString sliderNumber = QString::number(value);
-    ui->QuantityPassSymbol->setText(sliderNumber);
+    ui->QuantityPassSymbol->setValue(value);
 }
 void MainWindow::on_Generate_Password_clicked()
 {

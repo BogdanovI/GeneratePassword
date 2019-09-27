@@ -26,11 +26,12 @@ QString PasswordAssembly::AssemblyNewPassword()
 {
     QString generateNewPassword;
     int choiseSymbol = 0;
-    bool checkUpperAssembly = checkUpper;
-    bool checkNumberAssembly = checkNumber;
+    bool checkUpperLeastOne = checkUpper;
+    bool checkNumberLeastOne = checkNumber;
+    bool checkPasswordSymbolAllUpper = false, checkPasswordSymbolAllNumber = false;
     for (int i = 0; i < setUserQuantityPassword; i++)
     {
-        choiseSymbol = rand() % MAX_DIVERSITY_SYMBOL + 1;
+        choiseSymbol = 1 + rand() % MAX_DIVERSITY_SYMBOL;
         switch (choiseSymbol)
         {
         case 1:
@@ -40,7 +41,7 @@ QString PasswordAssembly::AssemblyNewPassword()
             if (checkUpper == true)
             {
                 generateNewPassword.push_back(setUpperCaseLetter());
-                checkUpperAssembly = false;
+                checkUpperLeastOne = false;
             }
             else
             {
@@ -51,7 +52,7 @@ QString PasswordAssembly::AssemblyNewPassword()
             if (checkNumber == true)
             {
                 generateNewPassword.push_back(setTheNumbers());
-                checkNumberAssembly = false;
+                checkNumberLeastOne = false;
             }
             else
             {
@@ -60,18 +61,37 @@ QString PasswordAssembly::AssemblyNewPassword()
             break;
         }
     }
-    while (checkUpperAssembly == true || checkNumberAssembly == true)
+    for (int i = 0; i < generateNewPassword.size(); i++)
     {
-        choiseSymbol = rand() % generateNewPassword.size() - 1;
-        if (checkUpperAssembly == true && !generateNewPassword[choiseSymbol].isNumber())
+        if (generateNewPassword[i].isUpper())
+        {
+            checkPasswordSymbolAllUpper = true;
+        }
+        if (generateNewPassword[i].isNumber())
+        {
+            checkPasswordSymbolAllNumber = true;
+        }
+    }
+    while (checkUpperLeastOne == true || checkNumberLeastOne == true)
+    {
+        choiseSymbol = rand() % (generateNewPassword.size() - 1);
+        if (checkUpperLeastOne == true && !generateNewPassword[choiseSymbol].isNumber())
         {
             generateNewPassword[choiseSymbol] = setUpperCaseLetter();
-            checkUpperAssembly = false;
+            checkUpperLeastOne = false;
         }
-        if (checkNumberAssembly == true && !generateNewPassword[choiseSymbol].isUpper())
+        if (checkNumberLeastOne == true && !generateNewPassword[choiseSymbol].isUpper())
         {
             generateNewPassword[choiseSymbol] = setTheNumbers();
-            checkNumberAssembly = false;
+            checkNumberLeastOne = false;
+        }
+        if (checkPasswordSymbolAllUpper == true)
+        {
+            generateNewPassword[choiseSymbol] = setTheNumbers();
+        }
+        if (checkPasswordSymbolAllNumber == true)
+        {
+            generateNewPassword[choiseSymbol] = setUpperCaseLetter();
         }
     }
     return generateNewPassword;
