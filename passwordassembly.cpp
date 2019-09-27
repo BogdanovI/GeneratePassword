@@ -4,21 +4,21 @@
 char PasswordAssembly::setLowerCaseLetter()
 {
     char newLowerLetter;
-    newLowerLetter = static_cast<char>(97 + rand() % (122 - 97));
+    newLowerLetter = static_cast<char>(MIN_CODE_LOWER + rand() % (MAX_CODE_LOWER - MIN_CODE_LOWER));
     return newLowerLetter;
 }
 
 char PasswordAssembly::setUpperCaseLetter()
 {
     char newUpperLetter;
-    newUpperLetter = static_cast<char>(65 + rand() % (90 - 65));
+    newUpperLetter = static_cast<char>(MIN_CODE_UPPER + rand() % (MAX_CODE_UPPER - MIN_CODE_UPPER));
     return newUpperLetter;
 }
 
 char PasswordAssembly::setTheNumbers()
 {
     char newNumber;
-    newNumber = static_cast<char>(48 + rand() % (57 - 48));
+    newNumber = static_cast<char>(MIN_CODE_NUM + rand() % (MAX_CODE_NUM - MIN_CODE_NUM));
     return newNumber;
 }
 
@@ -30,7 +30,7 @@ QString PasswordAssembly::AssemblyNewPassword()
     bool checkNumberAssembly = checkNumber;
     for (int i = 0; i < setUserQuantityPassword; i++)
     {
-        choiseSymbol = rand() % 3 + 1;
+        choiseSymbol = rand() % MAX_DIVERSITY_SYMBOL + 1;
         switch (choiseSymbol)
         {
         case 1:
@@ -62,7 +62,7 @@ QString PasswordAssembly::AssemblyNewPassword()
     }
     while (checkUpperAssembly == true || checkNumberAssembly == true)
     {
-        choiseSymbol = rand() % 2;
+        choiseSymbol = rand() % generateNewPassword.size() - 1;
         if (checkUpperAssembly == true && !generateNewPassword[choiseSymbol].isNumber())
         {
             generateNewPassword[choiseSymbol] = setUpperCaseLetter();

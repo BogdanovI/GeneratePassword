@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "passwordassembly.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE

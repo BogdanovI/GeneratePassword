@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "passwordassembly.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -39,10 +40,8 @@ int MainWindow::getQuantitySymbol()
 QString MainWindow::generatePassword()
 {
     QString newPassword;
-    PasswordAssembly *genPass =
-        new PasswordAssembly(getQuantitySymbol(), ui->upperCheck->checkState(), ui->numberCheck->checkState());
-    newPassword = genPass->AssemblyNewPassword();
-    delete genPass;
+    PasswordAssembly genPass(getQuantitySymbol(), ui->upperCheck->checkState(), ui->numberCheck->checkState());
+    newPassword = genPass.AssemblyNewPassword();
     return newPassword;
 }
 
